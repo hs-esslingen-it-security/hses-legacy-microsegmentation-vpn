@@ -26,5 +26,5 @@ The repository is structured as follows:
 ## Usage
 After cloning the repository, navigate to the relevant directories:
 
-- Run the Jupyter Notebook in `demo/` to explore the PoC logic.
+- Run the Jupyter Notebook to explore the PoC logic.
 - Deploy the provided Docker network to replicate the testbed environment.
