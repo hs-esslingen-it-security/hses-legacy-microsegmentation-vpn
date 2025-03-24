@@ -18,9 +18,9 @@ The repository is structured as follows:
 
 
 ## To-Do
-- [ ] Upload Scripts
-- [ ] Upload Demo
-- [ ] Upload PoC/Docker network
+- [ ] Upload scripts
+- [ ] Extend demo/notebook
+- [ ] Upload PoC/docker network
 
 
 ## Usage
