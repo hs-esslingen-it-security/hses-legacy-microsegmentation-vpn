@@ -6,13 +6,14 @@ This repository contains the accompanying code and data for the Proof-of-Concept
 The repository is structured as follows:
 
 - **`data/`** - Contains pre-processed traffic captures from the SWaT testbed along with the scripts used for pre-processing.
-- **`demo/`** - Includes a Jupyter Notebook demonstrating the key steps: communication relations analysis (+ visualization), micro-segmentation via firewall rule generation, and VPN configuration.
 - **`scripts/`** - contains the core scripts:
   - `flow_analysis.py` - Analyzes communication relations.
   - `visualize_relations.py` - Visualizes communication relations.
   - `micro_segmentation.py` - Aggregates suitable micro-segments.
   - `firewall_rules_generation.py` - Generates firewall rules to enforce the microsegments.
   - `wireguard.py` - Configures VPN settings.
+  
+  It also includes a **Jupyter Notebook** demonstrating the key steps: communication relations analysis (+ visualization), micro-segmentation via firewall rule generation, and VPN configuration.
 - **`PoC/`** - Contains the PoC, including a zipped Docker network implementing the described steps, providing a reproducible setup.
 
 
