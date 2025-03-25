@@ -1,7 +1,7 @@
 ## Test Data
 
-The test traffic captures used in this project are sourced from the Secure Water Treatment (SWaT) testbed [1] trace **SWaT.A6_Dec 2019** (`Dec2019_00000_20191206100500.pcap`).
-We consider a simplified topology as illustrated: 
+The test traffic capture used in this project is sourced from the Secure Water Treatment (SWaT) testbed [1] trace **SWaT.A6_Dec 2019** (`Dec2019_00000_20191206100500.pcap`).
+We consider a simplified SWaT topology as illustrated: 
 
 
 <div style="text-align: center;">
@@ -11,13 +11,12 @@ We consider a simplified topology as illustrated:
 
 ### Pre-processing
 
-The pre-processing steps are executed using the `preprocess.sh` script. The key steps are as follows:
-
+The traffic capure was pre-processed as follows:
 - Filter traffic related to PLC1-6 and SCADA. 
 - Extract the first 50,000 packets (due to file size limitations) and save them to `dump.pcap` (used in Docker network).
 
 ### Flow Analysis
-The result of the flow analysis is saved to `filtered_flows.csv`.
+The result of the flow analysis is saved to `flows.csv`.
 
 
 

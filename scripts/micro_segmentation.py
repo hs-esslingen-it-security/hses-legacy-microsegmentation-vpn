@@ -1,4 +1,8 @@
 import pandas as pd
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 ########################
 # derive segments
@@ -13,9 +17,7 @@ def host_level_segmentation(ip, df_flows):
     # sort and print
     df_host_level = df_host_level.sort_values(by=["ip"], key=lambda x: x.str.split(".").apply(lambda y: [int(z) for z in y]))
 
-    print(f"Unique Host-level Communication Flows for {ip}:")
-    print(df_host_level.to_string(index=False))
-    print("\n")
+    logging.info(f"Unique Host-level Communication Flows for {ip}:\n{df_host_level.to_string(index=False)}\n")
     return df_host_level
 
 
@@ -36,7 +38,5 @@ def application_level_segmentation(ip, df_flows):
     df_app_level = df_grouped[['src_ip', 'dst_ip', 'src_port', 'dst_port', 'protocol', 'application_name', 'bi-directional']].drop_duplicates() 
     df_app_level = df_app_level.sort_values(by=["src_ip"], key=lambda x: x.str.split(".").apply(lambda y: [int(z) for z in y]))
 
-    print(f"Unique Application-level Communication Flows for {ip}:")
-    print(df_app_level.to_string(index=False))
-    print("\n")
+    logging.info(f"Unique Application-level Communication Flows for {ip}:\n{df_app_level.to_string(index=False)}\n")
     return df_app_level

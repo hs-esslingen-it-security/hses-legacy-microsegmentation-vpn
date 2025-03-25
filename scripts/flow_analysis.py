@@ -15,7 +15,7 @@ class EthernetIP(NFPlugin):
             flow.application_category_name = "Network"  # Override app category
 
 # my_dataframe = my_streamer.to_pandas(columns_to_anonymize=[])
-def parse_dump(input_pcap, output_csv="dumps/filtered_flows.csv"):
+def parse_dump(input_pcap, output_csv="../data/flows.csv"):
     """
     Parses a network dump file and extracts communication flows (store as csv)
     """
@@ -23,3 +23,6 @@ def parse_dump(input_pcap, output_csv="dumps/filtered_flows.csv"):
     my_streamer = NFStreamer(source=input_pcap,  # or live network interface
                              udps=EthernetIP(volatile=True))
     total_flows = my_streamer.to_csv(path=output_csv)
+    df_flows = my_streamer.to_pandas(columns_to_anonymize=[])
+
+    return df_flows

@@ -9,11 +9,11 @@ The repository is structured as follows:
 - **`scripts/`** - contains the core scripts:
   - `flow_analysis.py` - Analyzes communication relations.
   - `visualize_relations.py` - Visualizes communication relations.
-  - `micro_segmentation.py` - Aggregates suitable micro-segments.
-  - `firewall_rules_generation.py` - Generates firewall rules to enforce the microsegments.
+  - `micro_segmentation.py` - Aggregates suitable micro-segments based on identified relations.
+  - `firewall_rules_generation.py` - Generates firewall rules to enforce the micro-segments.
   - `wireguard.py` - Configures VPN settings.
   
-  It also includes a **Jupyter Notebook** demonstrating the key steps: communication relations analysis (+ visualization), micro-segmentation via firewall rule generation, and VPN configuration.
+  It also includes a `notebook.ipynb` demonstrating the key steps: communication relations analysis (+ visualization), micro-segmentation via firewall rule generation, and VPN configuration.
 - **`PoC/`** - Contains the PoC, including a zipped Docker network implementing the described steps, providing a reproducible setup.
 
 
@@ -26,5 +26,5 @@ The repository is structured as follows:
 ## Usage
 After cloning the repository, navigate to the relevant directories:
 
-- Run the Jupyter Notebook to explore the PoC logic.
+- Run the notebook to explore the PoC logic.
 - Deploy the provided Docker network to replicate the testbed environment.
