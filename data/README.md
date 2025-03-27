@@ -18,6 +18,9 @@ The traffic capure was pre-processed as follows:
 ### Flow Analysis
 The result of the flow analysis is saved to `flows.csv`.
 
+### PoC - Unauthorized Access Attack
+The unauthorized traffic used for the evaluation in the PoC (PLC6 -> PLC5) is saved to `unauthorized.pcap`.
+
 
 
 
