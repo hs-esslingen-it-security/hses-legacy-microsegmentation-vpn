@@ -1,0 +1,8 @@
+cffi>=1.15.0
+python-dateutil>=2.8.2
+plotly
+pyshark
+networkx
+mmh3
+pymmh3
+pandas

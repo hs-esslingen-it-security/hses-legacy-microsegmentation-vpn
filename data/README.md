@@ -1,4 +1,4 @@
-## Test Data
+# Test Data
 
 The test traffic capture used in this project is sourced from the Secure Water Treatment (SWaT) testbed [1] trace **SWaT.A6_Dec 2019** (`Dec2019_00000_20191206100500.pcap`).
 We consider a simplified SWaT topology as illustrated: 
@@ -19,7 +19,7 @@ The traffic capure was pre-processed as follows:
 The result of the flow analysis is saved to `flows.csv`.
 
 ### PoC - Unauthorized Access Attack
-The unauthorized traffic used for the evaluation in the PoC (PLC6 -> PLC5) is saved to `unauthorized.pcap`.
+The unauthorized traffic used for the evaluation in the PoC (PLC6 -> PLC5; derived from communication between PLC1 and PLC6, IP-addresses adjusted) is saved to `unauthorized.pcap`.
 
 
 
