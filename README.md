@@ -1,6 +1,6 @@
 # Security Gateway for Automated Micro-Segmentation and VPN Encryption in Industrial Legacy Systems 
 
-This repository contains the accompanying code and data for the **Proof-of-Concept (PoC)** of the paper on securely integrating legacy devices into industrial networks. The goal is to automate and implement micro-segmentation and VPN encryption for legacy devices through security gateways, thereby ensuring a seamless migration towards a more secure infrastructure. 
+This repository contains the accompanying code and data for the **Proof-of-Concept (PoC)** of the paper "Security Gateway for Automated Micro-Segmentation and VPN Encryption in Industrial Legacy Systems", on securely integrating legacy devices into industrial networks. The goal is to automate and implement micro-segmentation and VPN encryption for legacy devices through security gateways, thereby ensuring a seamless migration towards a more secure infrastructure. 
 
 ## Repository Structure
 The repository is structured as follows:

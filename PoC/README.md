@@ -14,7 +14,7 @@ We provide a Docker-based network environment for evaluating micro-segmentation,
   - PCAP files are stored in `shared-volume/shared-pcaps/`
 - 🌐 **Networking:**
   - Gateways have fixed MAC addresses on internal interfaces for routing.
-  - PLCs always communicate through their designated gateway (slight adjustments to original SWaT .pcap).
+  - PLCs always communicate through their designated gateway (slight adjustments to destination MAC addresses in original SWaT .pcap).
 
 ## Setup
 1. Place PCAP file in 📂 `shared-volume/shared-pcaps/` (`dump.pcap` is already loaded).
@@ -58,7 +58,7 @@ Start flow analysis in `/data/shared-scripts` with `python3 flow_analysis.py`.
 
 ## Evaluation
 For evaluation, `unauthorized-gw.pcap` 🚨 is included in `shared-volume/shared-pcaps/`, containing unauthorized packets from `plc6 -> plc5`. Verification steps:
-- Send this pcap from `plc6`
+- Send this pcap from `plc6` (can be automated at start-up)
 - Use tcpdump on the `esp-gw5` and `plc5` to confirm:
   - The firewall drops unauthorized packets (PCAPS in `PoC/network_traces` before and after firewall rules activation).
   - Flows using VPN tunnels are encrypted.

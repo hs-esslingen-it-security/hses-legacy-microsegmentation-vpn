@@ -68,8 +68,3 @@ def generate_configs(connections: int, subnet: IPv4Network, server: IPv4Address,
         logger.error('Wireguard is not installed!')
         exit(1)
 
-
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
-    configs = generate_configs(1, IPv4Network('10.0.0.0/24'), IPv4Address('10.0.1.1'), 51005)
-
