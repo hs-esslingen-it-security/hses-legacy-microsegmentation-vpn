@@ -5,7 +5,7 @@ This repository contains the accompanying code and data for the **Proof-of-Conce
 ## Repository Structure
 The repository is structured as follows:
 
-- 📁 **`data/`** - Contains pre-processed traffic captures from the SWaT testbed [1] (topology displayed), the results of the flow analysis, and the traffic captures used in the PoC to test unauthorized access.
+- 📁 **`data/`** - Contains pre-processed traffic captures from the testbed (topology displayed), the results of the flow analysis, and the traffic captures used in the PoC to test unauthorized access.
 - 📁 **`scripts/`** - contains the core scripts:
   - `flow_analysis.py` - Analyzes communication relations.
   - `visualize_relations.py` - Visualizes communication relations.
@@ -21,10 +21,3 @@ After cloning the repository, navigate to the relevant directories:
 
 - Run the 📓 `notebook.ipynb` to explore the PoC logic.
 - Deploy the provided Docker network to replicate the 📁 `PoC/`.
-
-
-## Upcoming improvements:
-- [ ] Update scripts (wireguard)
-
-
-[1]: A. P. Mathur and N. O. Tippenhauer, "SWaT: a water treatment testbed for research and training on ICS security," 2016 International Workshop on Cyber-physical Systems for Smart Water Networks (CySWater), Vienna, Austria, 2016, pp. 31-36, doi: 10.1109/CySWater.2016.7469060.
