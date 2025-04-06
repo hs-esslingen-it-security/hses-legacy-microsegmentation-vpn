@@ -9,6 +9,8 @@ RUN apt update && apt install -y \
     tcpreplay \
     iproute2 \
     sudo \
+    nano \
+    vim \
     bridge-utils \
     iputils-ping
     

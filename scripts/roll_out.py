@@ -21,5 +21,15 @@ def main():
         # Perform application-level segmentation 
         generate_firewall_rules_application_level(args.ip, df_flows)
 
+    # add VPN configurations roll out (in /etc/wireguard/wg0.conf), depending on granularity
+    # device:
+    #   wg10 -> PLC1,
+    #   wg20 -> PLC2, ...
+    #
+    # application:
+    #   wg10-2222 -> PLC1 port 2222 ...
+    #
+    # add ip routes 
+
 if __name__ == "__main__":
     main()
