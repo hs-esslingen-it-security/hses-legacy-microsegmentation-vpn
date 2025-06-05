@@ -32,7 +32,7 @@ def compute_perpendicular_point(mid, start, end, offset):
     return mid + direction
 
 
-def visualize_flows_df(df_flows, output_file='../data/network_graph.png', pos=None):
+def visualize_flows_df(df_flows, output_file, pos=None):
     """
     visualize recorded communication flows dataframe as graph
     """

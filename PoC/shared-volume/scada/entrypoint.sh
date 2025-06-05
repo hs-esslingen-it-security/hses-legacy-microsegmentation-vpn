@@ -20,6 +20,6 @@ ip route add 192.168.1.56/29 via 192.168.1.106
 # Custom startup commands
 while true; do
     echo "SCADA running..."
-    tcpdump -r /pcaps/dump.pcap -w- 'src 192.168.1.100' | tcpreplay -ieth0 - 
+    tcpdump -r /pcaps/demo.pcap -w- 'src 192.168.1.100' | tcpreplay -ieth0 - 
     sleep 30
 done

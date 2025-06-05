@@ -4,7 +4,7 @@ echo "Starting End Device 4..."
 if [ -f "/pcaps/plc4-gw.pcap" ]; then
     echo "Rewritten pcap for PLC4 exists."
 else
-    tcpdump -r /pcaps/dump.pcap -w /pcaps/plc4.pcap 'src 192.168.1.40'
+    tcpdump -r /pcaps/demo.pcap -w /pcaps/plc4.pcap 'src 192.168.1.40'
     tcprewrite --infile=/pcaps/plc4.pcap --outfile=/pcaps/plc4-gw.pcap --enet-dmac=00:1d:9c:00:00:04
 fi
 

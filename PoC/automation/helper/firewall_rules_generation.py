@@ -14,7 +14,7 @@ def apply_rule(chain: str, protocol: str, src_ip: str, dst_ip: str, src_port: st
     """
     Apply an iptables rule.
     
-    :param chain: The chain to apply the rule to (e.g., "INPUT", "OUTPUT", "FORWARD").
+    :param chain: The chain to apply the rule to ("FORWARD").
     :param protocol: The protocol to match (e.g., "tcp", "udp").
     :param src_ip: Source IP address.
     :param dst_ip: Destination IP address.
@@ -31,42 +31,22 @@ def apply_rule(chain: str, protocol: str, src_ip: str, dst_ip: str, src_port: st
             command += ["--dport", dst_port]
     command += ["-j", "ACCEPT"]
     return " ".join(command)
-    
-    try:
-        subprocess.run(command, check=True)
-        print("Rule applied successfully:", " ".join(command))
-    except subprocess.CalledProcessError as e:
-        print("Error applying rule:", e)
 
 
-# add logging (?): iptables -A OUTPUT -j LOG --log-prefix "Dropped packet: " --log-level 4
-# Drop at the end: iptables -A INPUT -j DROP
 def log_and_drop(chain: str):
     """
     Apply (a LOG rule followed by) a DROP rule at the end of the given chain.
 
-    :param chain: The chain to apply the rule to (e.g., "INPUT", "OUTPUT", "FORWARD").
+    :param chain: The chain to apply the rule to ("FORWARD").
     """
     base_command = ["iptables", "-A", chain]
     
     # Add the log action
     log_command = base_command + ["-j", "LOG", "--log-prefix", '"DroppedPacket:"', "--log-level", "4"]
-    # try:
-    #     subprocess.run(log_command, check=True)
-    #     print("LOG rule applied successfully:", " ".join(log_command))
-    # except subprocess.CalledProcessError as e:
-    #     print("Error applying LOG rule:", e)
 
     # Add the drop action
     drop_command = base_command + ["-j", "DROP"]
-    # try:
-    #     subprocess.run(drop_command, check=True)
-    #     print("DROP rule applied successfully:", " ".join(drop_command))
-    # except subprocess.CalledProcessError as e:
-    #     print("Error applying DROP rule:", e)
     return [" ".join(log_command), " ".join(drop_command)]
-
-
 
 
 def generate_firewall_rules_host_level(ip: str, df_flows: pd.DataFrame):
@@ -98,7 +78,6 @@ def generate_firewall_rules_application_level(ip: str, df_flows: pd.DataFrame):
     # corner cases:
     #   - uni-directional communication: allows only this specific flow from src to dst
     #   - bi-directional communication: allows communication for host, protocol, and application port in both directions
-    #   - is given IP the src or dst in streams? (-> affects required chain: INPUT or OUTPUT)
     logging.info(f"Generate firewall rules for {ip}")
     for _, row in app_level.iterrows():
         protocol = "tcp" if row["protocol"] == 6 else "udp" if row["protocol"] == 17 else "all"

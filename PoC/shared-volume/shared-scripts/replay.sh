@@ -1,1 +1,2 @@
-tcpdump -r /pcaps/$1.pcap -w- "src $2" | tcpreplay -ieth0 -
+#!/bin/sh
+tcpdump -r /pcaps/$1 -w- "src $2" | tcpreplay -ieth0 -

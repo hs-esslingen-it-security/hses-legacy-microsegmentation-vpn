@@ -2,6 +2,7 @@
 import subprocess
 import logging
 import pandas as pd
+import argparse
 from helper.micro_segmentation import *
 from helper.firewall_rules_generation import generate_firewall_rules_host_level, generate_firewall_rules_application_level
 
@@ -17,10 +18,10 @@ gw_to_ip_map = {"esp-gw1": "192.168.1.10",
                 "scada":   "192.168.1.100"}
 
 
-def capture(filename: str = "dump", container: str = "esp-gw6", count: int = 1000):
+def capture(filename: str = "demo", container: str = "esp-gw6", count: int = 1000):
     subprocess.run(f'docker exec {container} tcpdump -w /pcaps/{filename}.pcap -c {count}'.split(' '), check=True)
 
-def filter_pcap(filename: str = "dump"):
+def filter_pcap(filename: str = "demo"):
     from nfstream import NFStreamer, NFPlugin
     from dataclasses import dataclass, field
     
@@ -38,25 +39,67 @@ def filter_pcap(filename: str = "dump"):
     return total_flows
 
 
-
 def main():
-    GATEWAYS = ["esp-gw1", "esp-gw3", "esp-gw6"]
+    parser = argparse.ArgumentParser(description="ESP Microsegmentation and VPN Configurator. Example use: python3 00_segmentation.py --gateways esp-gw5 esp-gw6 --segmentation --granularity device --vpn")
+
+    parser.add_argument(
+        "--gateways",
+        nargs="+",
+        default=["esp-gw1", "esp-gw2", "esp-gw5"],
+        help="List of gateway container names (default: esp-gw1, esp-gw2, esp-gw5)"
+    )
+
+    parser.add_argument(
+        "--refresh",
+        action="store_true",
+        help="Capture and filter new pcap file instead of using cached CSV (requires NFStream support)"
+    )
+
+    parser.add_argument(
+        "--segmentation",
+        action="store_true",
+        help="Enable micro-segmentation (firewall rule generation and application)"
+    )
+
+    parser.add_argument(
+        "--vpn",
+        action="store_true",
+        help="Enable VPN tunnel setup"
+    )
+
+    parser.add_argument(
+        "--csv",
+        default="demo.csv",
+        help="CSV file traffic flows for analysis (default: 'demo.csv')"
+    )
+
+    parser.add_argument(
+        "--granularity",
+        choices=["device", "stream"],
+        default="stream",
+        help="Segmentation rule granularity: 'device' for host-level, 'stream' for application-level (default: 'stream')"
+    )
+
+    args = parser.parse_args()
+
+    GATEWAYS = args.gateways
+    FILENAME = args.csv
+    REFRESH = args.refresh
+    SEGMENTATION = args.segmentation
+    VPN = args.vpn
+    GRANULARITY = args.granularity
+
     IPS = [gw_to_ip_map[gw] for gw in GATEWAYS]
     REVERSE_MAP = {gw_to_ip_map[gw]: gw for gw in GATEWAYS}
-    GRANULARITY = "stream"
-    #GRANULARITY = "device"
-    REFRESH = True
-    FIREWALL = True
-    VPN = True
-    FILENAME = "demo"
 
-    if REFRESH:
-        capture(filename=FILENAME)
-        filter_pcap(filename=FILENAME)
 
-    df_flows = pd.read_csv(f"../shared-volume/shared-pcaps/{FILENAME}.csv", sep=',')
+    #if REFRESH: # requires NFStream support, due to reproducibility issues outsourced for now
+        #capture(filename=FILENAME)
+        #filter_pcap(filename=FILENAME)
 
-    if FIREWALL:
+    df_flows = pd.read_csv(f"../shared-volume/shared-pcaps/{FILENAME}", sep=',')
+
+    if SEGMENTATION:
         firewall_config = {}
         for gw in GATEWAYS:
             if GRANULARITY == "device":
@@ -93,9 +136,6 @@ def main():
         subprocess.run(['./helper/wireguard_01.sh', 
                         ','.join(['__'.join(vpn_tunnel) for vpn_tunnel in per_tunnel_config])], check=True)
  
-
-
-    
 
 if __name__ == "__main__":
     main()
