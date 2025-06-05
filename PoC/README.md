@@ -1,4 +1,4 @@
-# Docker Network
+# PoC
 
 We provide a Docker-based network environment for evaluating micro-segmentation, firewall rules generation, and VPN configuration. The setup processes PCAP files and ensures controlled network communication among containers.
 
@@ -8,16 +8,16 @@ We provide a Docker-based network environment for evaluating micro-segmentation,
 
 
 ## Components
-- 🖥 **Devices:** `plc1` to `plc6` with security gateways `esp-gw1` to `esp-gw1` (ESP - Edge Security Proxy), each with a configuration script (`entrypoint-plc.sh` + `entrypoint-gw.sh`), and `scada` (`entrypoint.sh`)
+- 🖥 **Devices:** `plc1` to `plc6` with security gateways `esp-gw1` to `esp-gw6` (ESP - Edge Security Proxy), each with a configuration script (`entrypoint-plc.sh` + `entrypoint-gw.sh`), and `scada` (`entrypoint.sh`)
 - 📂 **Shared Volumes:**
-  - Scripts are stored in `shared-volume/shared-scripts/`
+  - Automation of the PoC is stored in `automation/`
   - PCAP files are stored in `shared-volume/shared-pcaps/`
 - 🌐 **Networking:**
   - Gateways have fixed MAC addresses on internal interfaces for routing.
   - PLCs always communicate through their designated gateway (slight adjustments to destination MAC addresses in original SWaT .pcap).
 
 ## Setup
-1. Place PCAP file in 📂 `shared-volume/shared-pcaps/` (`dump.pcap` is already loaded).
+1. Place PCAP file in 📂 `shared-volume/shared-pcaps/` (`demo.pcap` is already loaded).
 2. Start the environment:
    ```sh
    sudo docker compose up --build
@@ -28,7 +28,7 @@ We provide a Docker-based network environment for evaluating micro-segmentation,
      ```sh
      sudo docker exec plc2 tcpdump -r /pcaps/plc2-gw.pcap -w- 'src 192.168.1.20' | tcpreplay -ieth0 -  
      ```
-   - Capture network traffic:
+   - Capture network traffic and deploy the segmentation:
      ```sh
      sudo docker exec plc2 tcpdump -w /data/test.pcap -c 100
      ```

@@ -1,0 +1,293 @@
+services:
+  plcgw:
+    build: ./scada
+    container_name: plcgw
+    image: plcgw
+    
+  plc:
+    build: ./plc
+    container_name: plc
+    image: plc
+
+  gw:
+    build: ./esp-gw
+    container_name: gw
+    image: gw
+    volumes:
+      - ./shared-volume:/data
+
+  eval:
+    build: ./eval
+    container_name: eval
+    image: eval
+    volumes:
+      - ./shared-volume:/data
+
+  plc1:
+    image: plc
+    depends_on:
+      - plc
+    container_name: plc1
+    restart: unless-stopped
+    privileged: true
+    networks:
+      esp1-network:
+        ipv4_address: 192.168.1.10
+    volumes:
+      - ./shared-volume/plc1:/data
+      - ./shared-volume/shared-pcaps:/pcaps
+      - ./shared-volume/shared-scripts:/scripts
+    entrypoint: ["/data/entrypoint-plc.sh"]
+
+  esp-gw1:
+    image: gw
+    depends_on:
+      - gw
+    container_name: esp-gw1
+    restart: unless-stopped
+    privileged: true
+    networks:
+      esp1-network:
+        ipv4_address: 192.168.1.11
+      main-network:
+        ipv4_address: 192.168.1.101
+    volumes:
+      - ./shared-volume/plc1:/data
+      - ./shared-volume/shared-pcaps:/pcaps
+      - ./shared-volume/shared-scripts:/scripts
+    entrypoint: ["/data/entrypoint-gw.sh"]
+
+  plc2:
+    image: plc
+    depends_on:
+      - plc
+    container_name: plc2
+    restart: unless-stopped
+    privileged: true
+    networks:
+      esp2-network:
+        ipv4_address: 192.168.1.20
+    volumes:
+      - ./shared-volume/plc2:/data
+      - ./shared-volume/shared-pcaps:/pcaps
+      - ./shared-volume/shared-scripts:/scripts
+    entrypoint: ["/data/entrypoint-plc.sh"]
+
+  esp-gw2:
+    image: gw
+    depends_on:
+      - gw
+    container_name: esp-gw2
+    restart: unless-stopped
+    privileged: true
+    networks:
+      esp2-network:
+        ipv4_address: 192.168.1.21
+      main-network:
+        ipv4_address: 192.168.1.102
+    volumes:
+      - ./shared-volume/plc2:/data
+      - ./shared-volume/shared-pcaps:/pcaps
+      - ./shared-volume/shared-scripts:/scripts
+    entrypoint: ["/data/entrypoint-gw.sh"]
+
+  plc3:
+    image: plc
+    depends_on:
+      - plc
+    container_name: plc3
+    restart: unless-stopped
+    privileged: true
+    networks:
+      esp3-network:
+        ipv4_address: 192.168.1.30
+    volumes:
+      - ./shared-volume/plc3:/data
+      - ./shared-volume/shared-pcaps:/pcaps
+      - ./shared-volume/shared-scripts:/scripts
+    entrypoint: ["/data/entrypoint-plc.sh"]
+
+  esp-gw3:
+    image: gw
+    depends_on:
+      - gw
+    container_name: esp-gw3
+    restart: unless-stopped
+    privileged: true
+    networks:
+      esp3-network:
+        ipv4_address: 192.168.1.29
+      main-network:
+        ipv4_address: 192.168.1.103
+    volumes:
+      - ./shared-volume/plc3:/data
+      - ./shared-volume/shared-pcaps:/pcaps
+      - ./shared-volume/shared-scripts:/scripts
+    entrypoint: ["/data/entrypoint-gw.sh"]
+
+  plc4:
+    image: plc
+    depends_on:
+      - plc
+    container_name: plc4
+    restart: unless-stopped
+    privileged: true
+    networks:
+      esp4-network:
+        ipv4_address: 192.168.1.40
+    volumes:
+      - ./shared-volume/plc4:/data
+      - ./shared-volume/shared-pcaps:/pcaps
+      - ./shared-volume/shared-scripts:/scripts
+    entrypoint: ["/data/entrypoint-plc.sh"]
+
+  esp-gw4:
+    image: gw
+    depends_on:
+      - gw
+    container_name: esp-gw4
+    restart: unless-stopped
+    privileged: true
+    networks:
+      esp4-network:
+        ipv4_address: 192.168.1.39
+      main-network:
+        ipv4_address: 192.168.1.104
+    volumes:
+      - ./shared-volume/plc4:/data
+      - ./shared-volume/shared-pcaps:/pcaps
+      - ./shared-volume/shared-scripts:/scripts
+    entrypoint: ["/data/entrypoint-gw.sh"]
+
+  plc5:
+    image: plc
+    depends_on:
+      - plc
+    container_name: plc5
+    restart: unless-stopped
+    privileged: true
+    networks:
+      esp5-network:
+        ipv4_address: 192.168.1.50
+    volumes:
+      - ./shared-volume/plc5:/data
+      - ./shared-volume/shared-pcaps:/pcaps
+      - ./shared-volume/shared-scripts:/scripts
+    entrypoint: ["/data/entrypoint-plc.sh"]
+
+  esp-gw5:
+    image: gw
+    depends_on:
+      - gw
+    container_name: esp-gw5
+    restart: unless-stopped
+    privileged: true
+    networks:
+      esp5-network:
+        ipv4_address: 192.168.1.51
+      main-network:
+        ipv4_address: 192.168.1.105
+    volumes:
+      - ./shared-volume/plc5:/data
+      - ./shared-volume/shared-pcaps:/pcaps
+      - ./shared-volume/shared-scripts:/scripts
+    entrypoint: ["/data/entrypoint-gw.sh"]
+
+  plc6:
+    image: plc
+    depends_on:
+      - plc
+    container_name: plc6
+    restart: unless-stopped
+    privileged: true
+    networks:
+      esp6-network:
+        ipv4_address: 192.168.1.60
+    volumes:
+      - ./shared-volume/plc6:/data
+      - ./shared-volume/shared-pcaps:/pcaps
+      - ./shared-volume/shared-scripts:/scripts
+    entrypoint: ["/data/entrypoint-plc.sh"]
+
+  esp-gw6:
+    image: gw
+    depends_on:
+      - gw
+    container_name: esp-gw6
+    restart: unless-stopped
+    privileged: true
+    networks:
+      esp6-network:
+        ipv4_address: 192.168.1.61
+      main-network:
+        ipv4_address: 192.168.1.106
+    volumes:
+      - ./shared-volume/plc6:/data
+      - ./shared-volume/shared-pcaps:/pcaps
+      - ./shared-volume/shared-scripts:/scripts
+    entrypoint: ["/data/entrypoint-gw.sh"]
+
+  scada:
+    image: plcgw
+    depends_on:
+      - plcgw
+    container_name: scada
+    restart: unless-stopped
+    privileged: true
+    networks:
+      main-network:
+        ipv4_address: 192.168.1.100  
+        #mac_address: 00:1d:9c:c6:72:e8
+    volumes:
+      - ./shared-volume/scada:/data
+      - ./shared-volume/shared-pcaps:/pcaps
+      - ./shared-volume/shared-scripts:/scripts
+    entrypoint: ["/data/entrypoint.sh"]
+
+  flow-eval:
+    image: eval
+    depends_on:
+      - eval
+    container_name: flow-eval
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - ./shared-volume:/data
+    entrypoint: ["/data/eval/entrypoint.sh"]
+
+networks:
+  main-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.96/28
+  esp1-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.8/29
+  esp2-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.16/29
+  esp3-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.24/29
+  esp4-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.32/28
+  esp5-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.48/29
+  esp6-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.56/29
